@@ -225,11 +225,8 @@ header {
 /* Contact grid */
 .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:1.5rem}
 .contact-form label{display:block;margin:.6rem 0 .2rem}
-.contact-form input, .contact-form textarea{width:100%;padding:.6rem;border-radius:8px;border:1px solid rgba(0, 0, 0, 0);background:transparent;color:var(--text)}
+.contact-form input, .contact-form textarea{width:100%;padding:.6rem;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--text)}
 .form-actions{display:flex;gap:.6rem;margin-top:.6rem}
-.form-message{margin-top:.6rem}
-.form-message .success{color:#25D366;font-weight:600}
-.form-message .error{color:#ff6b6b;font-weight:600}
 
 /* Footer */
 .site-footer{padding:1rem 0;border-top:1px solid rgba(255,255,255,0.02);margin-top:1rem}
@@ -239,15 +236,12 @@ header {
 
 /* Social Icons */
 .social-inline{display:flex;gap:1rem;margin-top:1rem;list-style:none}
-.social-inline a{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.02);color:var(--muted);text-decoration:none;transition:all .2s;border:1px solid rgba(255,255,255,0.03)}
+.social-inline a{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.02);color:var(--muted);text-decoration:none;transition:all .2s;border:1px solid rgba(255,255,255,0.03)}
 .social-inline a:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.3)}
 .social-inline .linkedin:hover{background:#0077b5;color:white}
 .social-inline .github:hover{background:#333;color:white}
 .social-inline .twitter:hover{background:#000;color:white}
 .social-inline .whatsapp:hover{background:#25D366;color:white}
-@media (max-width: 768px) {
-  .social-inline a { width: 52px; height: 52px; }
-}
 
 /* WhatsApp FAB */
 .whatsapp-fab{position:fixed;right:18px;bottom:18px;background:linear-gradient(180deg,#25D366,#128C7E);color:white;padding:0.85rem;border-radius:999px;box-shadow:0 8px 30px rgba(18,140,126,0.2);z-index:99}
@@ -321,77 +315,4 @@ header {
   .skills-grid{grid-template-columns:1fr}
   .logo{width:40px;height:40px}
   .avatar{height:180px}
-}
-
-/* iPhone specific styles */
-@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
-  /* iPhone X, XS, 11 Pro, 12 mini, 13 mini */
-  .hero-left { padding: 1.5rem; }
-  .avatar { height: 220px; }
-  .social-inline a { width: 50px; height: 50px; }
-}
-
-@media only screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) {
-  /* iPhone 12, 13, 14 */
-  .hero-left { padding: 1.5rem; }
-  .avatar { height: 220px; }
-  .social-inline a { width: 50px; height: 50px; }
-}
-
-@media only screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) {
-  /* iPhone 12 Pro Max, 13 Pro Max, 14 Plus */
-  .hero-left { padding: 1.5rem; }
-  .avatar { height: 240px; }
-  .social-inline a { width: 50px; height: 50px; }
-}
-
-@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
-  /* iPhone 11, XR, 11 Pro Max */
-  .hero-left { padding: 1.5rem; }
-  .avatar { height: 220px; }
-  .social-inline a { width: 50px; height: 50px; }
-}
-
-@media only screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) {
-  /* iPhone 8 Plus, 7 Plus, 6s Plus, 6 Plus */
-  .hero-left { padding: 1.5rem; }
-  .avatar { height: 200px; }
-  .social-inline a { width: 50px; height: 50px; }
-}
-
-@media only screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) {
-  /* iPhone 8, 7, 6s, 6 */
-  .hero-left { padding: 1.5rem; }
-  .avatar { height: 180px; }
-  .social-inline a { width: 50px; height: 50px; }
-}
-
-@media only screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) {
-  /* iPhone 5, SE */
-  .hero-left { padding: 1rem; }
-  .avatar { height: 160px; }
-  .social-inline a { width: 48px; height: 48px; }
-}
-
-/* Android specific styles */
-@media only screen and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 1.5) and (orientation: portrait) {
-  /* General Android phones */
-  .hero-left { padding: 1.5rem; }
-  .avatar { height: 200px; }
-  .social-inline a { width: 50px; height: 50px; }
-}
-
-@media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
-  /* Android tablets */
-  .hero-left { padding: 2rem; }
-  .avatar { height: 250px; }
-  .social-inline a { width: 52px; height: 52px; }
-}
-
-/* Windows Phone specific styles */
-@media only screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-  /* Windows Phone */
-  .hero-left { padding: 1.5rem; }
-  .avatar { height: 200px; }
-  .social-inline a { width: 50px; height: 50px; }
 }

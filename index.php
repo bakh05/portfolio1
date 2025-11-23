@@ -1,0 +1,396 @@
+<?php
+// Database configuration - adjust these variables according to your setup
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "portfolio_contacts";
+
+// Initialize variables
+$name = $email = $message = "";
+$name_err = $email_err = $message_err = "";
+$success_msg = "";
+$error_msg = "";
+
+// Process form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Validate name
+    if (empty(trim($_POST["name"]))) {
+        $name_err = "Le nom est requis.";
+    } else {
+        $name = htmlspecialchars(strip_tags(trim($_POST["name"])));
+    }
+
+    // Validate email
+    if (empty(trim($_POST["email"]))) {
+        $email_err = "L'email est requis.";
+    } elseif (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+        $email_err = "Format d'email invalide.";
+    } else {
+        $email = htmlspecialchars(strip_tags(trim($_POST["email"])));
+    }
+
+    // Validate message
+    if (empty(trim($_POST["message"]))) {
+        $message_err = "Le message est requis.";
+    } else {
+        $message = htmlspecialchars(strip_tags(trim($_POST["message"])));
+    }
+
+    // If no errors, process the data
+    if (empty($name_err) && empty($email_err) && empty($message_err)) {
+        // Create database connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+
+        // Check connection
+        if ($conn->connect_error) {
+            error_log("Database connection error: " . $conn->connect_error);
+            $error_msg = "Erreur de connexion à la base de données.";
+        } else {
+            // Prepare and bind
+            $stmt = $conn->prepare("INSERT INTO messages (name, email, message) VALUES (?, ?, ?)");
+
+            if ($stmt === false) {
+                error_log("Prepare statement failed: " . $conn->error);
+                $error_msg = "Erreur interne lors du traitement.";
+            } else {
+                $stmt->bind_param("sss", $name, $email, $message);
+
+                if ($stmt->execute()) {
+                    $success_msg = "Merci pour votre message, nous vous répondrons bientôt.";
+
+                    // Send notification email
+                    $to = "falloutambedou05@gmail.com";  // Your email
+                    $subject = "Nouveau message de contact";
+                    $email_body = "Nom: $name\nEmail: $email\nMessage: $message";
+
+                    // Use a fixed From address and set Reply-To header to user email
+                    $fixed_from = "noreply@yourdomain.com"; 
+                    $headers = "From: $fixed_from\r\n";
+                    $headers .= "Reply-To: $email\r\n";
+                    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+                    if (!mail($to, $subject, $email_body, $headers)) {
+                        $error_msg = "Erreur lors de l'envoi de l'email de notification.";
+                    }
+
+                    // Clear form data
+                    $name = $email = $message = "";
+                } else {
+                    $error_msg = "Une erreur est survenue lors de l'enregistrement.";
+                }
+                $stmt->close();
+                $conn->close();
+            }
+        }
+    }
+}
+?>
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fallou Tambedou</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="icon" href="image/bakhCode.png" sizes="16x16" type="image/png">
+  <link rel="icon" href="image/bakhCode.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="image/bakhCode.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="image/bakhCode.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-TileImage" content="image/bakhCode.png">
+  <meta name="msapplication-TileColor" content="#0e6b1d">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+  <nav class="nav container">
+    <div class="brand">
+      <img class="logo" src="image/bakhCode.png" alt="BakhCode Logo">
+      <div class="muted">Fallou Tambedou</div>
+    </div>
+
+    <div class="nav-links">
+      <a href="#home">Accueil</a>
+      <a href="#about">À propos</a>
+      <a href="#skills">Compétences</a>
+      <a href="#projects">Projets</a>
+      <a href="#education">Formation</a>
+      <a href="#contact" class="cta">Contact</a>
+    </div>
+
+    <button class="menu-toggle" aria-label="menu"><i class="fas fa-bars"></i></button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<main>
+  <section id="home" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-left glass">
+        <h1>Bonjour, <span id="typewriter"></span></h1>
+        <p class="lead">Je construis des applications web & mobiles modernes — projets notables : <strong>Bakh-Code</strong>. Je transforme les idées en code, avec élégance et performance.</p>
+
+        <div class="hero-ctas">
+          <a class="btn primary" href="#projects">Mes projets</a>
+          <a class="btn outline" href="#contact">Me contacter</a>
+        </div>
+        <ul class="social-inline">
+          <li><a href="https://www.linkedin.com/in/fallou-tambedou-a2b689375?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" class="linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
+          <li><a href="https://github.com/bakh05" class="github" aria-label="GitHub"><i class="fab fa-github"></i></a></li>
+          <li><a href="https://x.com/falloutambedou2?s=11" class="twitter" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a></li>
+          <li><a href="https://wa.me/221763348279" class="whatsapp" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
+        </ul>
+      </div>
+
+      <div class="hero-right">
+        <div class="card-stacked">
+          <img src="image/Digital.jpg" alt="Photo de profil" class="avatar">
+          <div class="stats glass">
+            <div><strong>4</strong><span>Années</span><small>d'expérience</small></div>
+            <div><strong>6+</strong><span>Projets</span><small>Livrés</small></div>
+            <div><strong>100%</strong><span>Satisfaction</span><small>Clients</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section container">
+    <div class="section-grid">
+      <div class="about-text glass">
+        <h2>À propos</h2>
+        <img src="image/fallu1.png" alt="Photo de Fallou Tambedou" class="about-image">
+        <p>Développeur full-stack basé au Sénégal, je conçois des produits numériques centrés utilisateur : sites vitrines, applications mobiles, systèmes bancaires . J'aime le design soigné, le code maintenable et l'impact réel.</p>
+
+        <ul class="about-list">
+          <li><strong>Spécialités :</strong>MySql, Oracle, PHP, JavaScript, Java, Python, Git, GitHub, WordPress,figma</li>
+          <li><strong>Style :</strong>UI moderne, performance, sécurité</li>
+          <li><strong>Langues :</strong> Français, Anglais et Wolof</li>
+        </ul> 
+      </div>
+
+      <div class="about-skillset">
+        <h3>Ce que je peux faire pour vous</h3>
+        <div class="skillbars">
+          <div class="skill">
+            <label>Frontend — HTML / CSS /JS</label>
+            <div class="bar"><span style="width: 92%"></span></div>
+          </div>
+          <div class="skill">
+            <label>Backend — docker / Java / php</label>
+            <div class="bar"><span style="width: 85%"></span></div>
+          </div>
+          <div class="skill">
+            <label>Mobile — Android (Java)</label>
+            <div class="bar"><span style="width: 78%"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section alt">
+    <div class="container">
+      <h2>Compétences</h2>
+      <div class="skills-grid">
+        <div class="skill-card glass">
+          <i class="fa-solid fa-code"></i>
+          <h4>Développement Web</h4>
+          <p>HTML, CSS, JS, React, Tailwind, performance</p>
+        </div>
+        <div class="skill-card glass">
+          <i class="fa-solid fa-server"></i>
+          <h4>Backend</h4>
+          <p>Node.js, Express, Java, APIs REST, authentification</p>
+        </div>
+        <div class="skill-card glass">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+          <h4>Mobile</h4>
+          <p>Android (Java), expériences utilisateur natives</p>
+        </div>
+        <div class="skill-card glass">
+          <i class="fa-solid fa-shield-halved"></i>
+          <h4>Sécurité & CI</h4>
+          <p>Bonnes pratiques, tests unitaires, déploiement CI/CD</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section container">
+    <h2>Projets</h2>
+    <p class="muted">Sélection de projets récents. Clique sur un projet pour voir plus de détails.</p>
+
+    <div class="projects-grid">
+      <!-- Projet 1 -->
+      <article class="project-card glass">
+        <img loading="lazy" src="image/gestion.png" alt="Gestion">
+        <div class="project-body">
+          <h3>Leppay-Bakh — Système gestionnaire de tâche</h3>
+          <p>Plateforme de gestion (clients, comptes, stock entre société) avec interface de diagramme</p>
+          <div class="project-tags"><span>html</span><span>css</span><span>javascript</span><span>php</span> </div>
+          <div class="project-actions">
+            <a class="btn small" href="#" onclick="openProject(event, 'LeppayBakh')">Détails</a>
+            <a class="btn ghost" href="#" target="_blank">Voir code</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Projet 2 -->
+      <article class="project-card glass">
+        <img src="image/fast-food.png" alt="Fast-Food">
+        <div class="project-body">
+          <h3>FastFood Express — App mobile</h3>
+          <p>Application Android Java. Menu dynamique, panier, commandes et suivi.</p>
+          <div class="project-tags"><span>Android</span><span>Java</span></div>
+          <div class="project-actions">
+            <a class="btn small" href="#" onclick="openProject(event, 'FastFood')">Détails</a>
+            <a class="btn ghost" href="#" target="_blank">Prototype</a>
+          </div>
+        </div>
+      </article>
+      <!-- Projet 3 -->
+      <article class="project-card glass">
+        <img loading="lazy" src="image/vote.png" alt="Vote">
+        <div class="project-body">
+          <h3>Vote — Site web</h3>
+          <p>Plateforme de vote. Menu dynamique, candidats, sécurisé.</p>
+          <div class="project-tags"><span>html</span><span>css</span><span>javascript</span><span>php</span></div>
+          <div class="project-actions">
+            <a class="btn small" href="#" onclick="openProject(event, 'vote')">Détails</a>
+            <a class="btn ghost" href="#" target="_blank">Prototype</a>
+          </div>
+        </div>
+      </article>
+       <!-- Projet  -->
+      <article class="project-card glass">
+        <img loading="lazy" src="image/yoon.png" alt="Yoon">
+        <div class="project-body">
+          <h3>Legal-Tech — Plateforme</h3>
+          <p>Développé par HTML/CSS/JS/PHP. Menu dynamique, sécurisé, service et suivi.</p>
+          <div class="project-tags"><span>html</span><span>css</span><span>javascript</span><span>php</span><span>docker</span><span>agence AI</span></div>
+          <div class="project-actions">
+            <a class="btn small" href="#" onclick="openProject(event, 'legal-tech')">Détails</a>
+            <a class="btn ghost" href="#" target="_blank">Prototype</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="section alt">
+    <div class="container">
+      <h2>Formation</h2>
+  <div class="timeline">
+        <div class="timeline-item glass">
+          <h4>Licence en Informatique de gestion</h4>
+          <span class="muted">ENSUP Afrique / 2024 - 2025</span>
+          <p>Formation spécialisée en informatique de gestion.</p>
+        </div>
+        <div class="timeline-item glass">
+          <h4>Licence 2 en Droit et informatique/DIL</h4>
+          <span class="muted">Université Numérique Cheikh Hamidou Kane / 2024 - 2025</span>
+          <p>Études en droit et informatique.</p>
+        </div>
+        <div class="timeline-item glass">
+          <h4>Agence IA</h4>
+          <span class="muted">Autodidacte</span>
+          <p>Apprentissage autodidacte en intelligence artificielle.</p>
+        </div>
+        <div class="timeline-item glass">
+          <h4>Baccalauréat</h4>
+          <span class="muted">Lycée Mouhamadou Moustapha Mbacké de Diourbel / 2021 - 2022</span>
+          <p>Diplôme de baccalauréat obtenu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section container">
+    <h2>Contact</h2>
+    <div class="contact-grid">
+      <form id="contactForm" class="contact-form glass" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <label for="name">Nom</label>
+        <input id="name" name="name" value="<?php echo htmlspecialchars($name); ?>" required>
+        <span class="error-message"><?php echo $name_err; ?></span>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" value="<?php echo htmlspecialchars($email); ?>" required>
+        <span class="error-message"><?php echo $email_err; ?></span>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required><?php echo htmlspecialchars($message); ?></textarea>
+        <span class="error-message"><?php echo $message_err; ?></span>
+
+        <div class="form-actions">
+          
+        </div>
+        <div id="formMessage" class="form-message">
+          <?php
+          if (!empty($success_msg)) {
+              echo "<p class='success-message'>$success_msg</p>";
+          }
+          if (!empty($error_msg)) {
+              echo "<p class='error-message'>$error_msg</p>";
+          }
+          ?>
+        </div>
+        <small class="muted">base de données est desactive envoi un message sur mes reseau social ou mail</small>
+      </form>
+
+      <div class="contact-info">
+        <div class="card glass">
+          <h4>Restons en contact</h4>
+          <p>Email : <a href="mailto:falloutambedou05@gmail.com">falloutambedou05@gmail.com</a></p>
+          <p>WhatsApp : <a href="https://wa.me/221763348279" target="_blank">+221 76 334 8279</a></p>
+          <p>Projet phare : <strong>Leppay-Bakh</strong></p>
+        </div>
+
+        <div class="card glass">
+          <h4>Disponibilité</h4>
+          <p>Freelance / Contrat / Collaboration — Disponible</p>
+          <a class="btn" href="#projects">Voir mes projets</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <p>© <span id="year"></span> Fallou Tambedou — Tous droits réservés.</p>
+    <div class="footer-actions">
+      <a href="#home" class="backtop" id="backTop" title="Retour en haut"><i class="fa fa-arrow-up"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp -->
+<a class="whatsapp-fab" href="https://wa.me/221763348279" target="_blank" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- Project Modal (simple) -->
+<div id="projectModal" class="modal" aria-hidden="true">
+  <div class="modal-content glass">
+    <button class="modal-close" id="modalClose" aria-label="Fermer"><i class="fa fa-times"></i></button>
+    <div id="projectModalBody"></div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="script.js"></script>
+</body>
+</html>

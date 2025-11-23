@@ -192,50 +192,55 @@ document.addEventListener('DOMContentLoaded', () => {
     el.classList.add('animate-slide-up');
     observer.observe(el);
   });
-
-
-
 });
 
-// Contact form handler with AJAX
-document.getElementById('contactForm').addEventListener('submit', function(e) {
+
+// Contact form handler (mailto fallback)
+function submitContact(e){
   e.preventDefault();
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
   const message = document.getElementById('message').value.trim();
-  const formMessage = document.getElementById('formMessage');
-
-  if (!name || !email || !message) {
-    formMessage.innerHTML = '<p class="error">Veuillez remplir tous les champs.</p>';
+  if(!name || !email || !message){
+    alert('Veuillez remplir tous les champs.');
     return;
   }
+  // open user's email client with prefilled message (simple fallback)
+  const subject = encodeURIComponent(`Contact portfolio — ${name}`);
+  const body = encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\n${message}`);
+  window.location.href = `mailto:falloutambedou05@gmail.com?subject=${subject}&body=${body}`;
+}
 
-  // Clear previous messages
-  formMessage.innerHTML = '';
+// Add asynchronous form submission for contact form with message display
+document.addEventListener('DOMContentLoaded', () => {
+  const contactForm = document.getElementById('contactForm');
+  const formMessage = document.getElementById('formMessage');
 
-  // Prepare form data
-  const formData = new FormData();
-  formData.append('name', name);
-  formData.append('email', email);
-  formData.append('message', message);
+  contactForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    formMessage.textContent = '';
+    formMessage.classList.remove('success', 'error');
 
-  // Send AJAX request
-  fetch('contact.php', {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      formMessage.innerHTML = '<p class="success">' + data.message + '</p>';
-      // Clear form fields
-      document.getElementById('contactForm').reset();
-    } else {
-      formMessage.innerHTML = '<p class="error">' + data.message + '</p>';
+    const formData = new FormData(contactForm);
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: 'POST',
+        body: formData
+      });
+      const result = await response.json();
+
+      if(result.success) {
+        formMessage.textContent = result.message || "Message envoyé avec succès!";
+        formMessage.classList.add('success');
+        contactForm.reset();
+      } else {
+        formMessage.textContent = result.message || "Erreur lors de l'envoi du message.";
+        formMessage.classList.add('error');
+      }
+    } catch (error) {
+      formMessage.textContent = "Erreur réseau ou serveur. Veuillez réessayer.";
+      formMessage.classList.add('error');
     }
-  })
-  .catch(error => {
-    formMessage.innerHTML = '<p class="error">Erreur lors de l\'envoi du message. Veuillez réessayer.</p>';
-    console.error('Error:', error);
   });
 });
