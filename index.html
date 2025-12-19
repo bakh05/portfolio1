@@ -29,14 +29,15 @@
     </div>
 
     <div class="nav-links">
-      <a href="#home">Accueil</a>
-      <a href="#about">À propos</a>
-      <a href="#skills">Compétences</a>
-      <a href="#projects">Projets</a>
-      <a href="#education">Formation</a>
-      <a href="#contact" class="cta">Contact</a>
+      <a href="#home" data-lang="nav-home">Accueil</a>
+      <a href="#about" data-lang="nav-about">À propos</a>
+      <a href="#skills" data-lang="nav-skills">Compétences</a>
+      <a href="#projects" data-lang="nav-projects">Projets</a>
+      <a href="#education" data-lang="nav-education">Formation</a>
+      <a href="#contact" class="cta" data-lang="nav-contact">Contact</a>
     </div>
 
+    <button id="lang-toggle" class="btn outline" data-lang="lang-toggle"><i class="fas fa-globe"></i> EN</button>
     <button class="menu-toggle" aria-label="menu"><i class="fas fa-bars"></i></button>
   </nav>
 </header>
@@ -46,12 +47,13 @@
   <section id="home" class="hero">
     <div class="container hero-grid">
       <div class="hero-left glass">
-        <h1>Bonjour, <span id="typewriter"></span></h1>
-        <p class="lead">Je construis des applications web & mobiles modernes — projets notables : <strong>Bakh-Code</strong>. Je transforme les idées en code, avec élégance et performance.</p>
+        <h1 data-lang="hero-greeting">Bonjour, <span id="typewriter"></span></h1>
+        <p class="lead" data-lang="hero-lead">Je construis des applications web & mobiles modernes  projets notables : <strong>Bakh-Code</strong>. Je transforme les idées en code, avec élégance et performance.</p>
+        <p class="muted" data-lang="hero-muted">Dans un monde numérique en constante évolution, je crois en la technologie comme outil pour rapprocher les humains, favoriser l'empathie et créer des solutions qui améliorent notre quotidien ensemble.</p>
 
         <div class="hero-ctas">
-          <a class="btn primary" href="#projects">Mes projets</a>
-          <a class="btn outline" href="#contact">Me contacter</a>
+          <a class="btn primary" href="#projects" data-lang="hero-projects">Mes projets</a>
+          <a class="btn outline" href="#contact" data-lang="hero-contact">Me contacter</a>
         </div>
         <ul class="social-inline">
           <li><a href="https://www.linkedin.com/in/fallou-tambedou-a2b689375?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" class="linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
@@ -65,9 +67,9 @@
         <div class="card-stacked">
           <img src="image/Digital.jpg" alt="Photo de profil" class="avatar">
           <div class="stats glass">
-            <div><strong>4</strong><span>Années</span><small>d'expérience</small></div>
-            <div><strong>6+</strong><span>Projets</span><small>Livrés</small></div>
-            <div><strong>100%</strong><span>Satisfaction</span><small>Clients</small></div>
+            <div><strong>4</strong><span data-lang="hero-years">Années</span><small>d'expérience</small></div>
+            <div><strong>6+</strong><span data-lang="hero-projects">Projets</span><small>Livrés</small></div>
+            <div><strong>100%</strong><span data-lang="hero-satisfaction">Satisfaction</span><small data-lang="hero-clients">Clients</small></div>
           </div>
         </div>
       </div>
@@ -78,30 +80,30 @@
   <section id="about" class="section container">
     <div class="section-grid">
       <div class="about-text glass">
-        <h2>À propos</h2>
+        <h2 data-lang="about-title">À propos</h2>
         <img src="image/fallu1.png" alt="Photo de Fallou Tambedou" class="about-image">
-        <p>Développeur full-stack basé au Sénégal, je conçois des produits numériques centrés utilisateur : sites vitrines, applications mobiles, systèmes bancaires . J'aime le design soigné, le code maintenable et l'impact réel.</p>
+        <p data-lang="about-description">Développeur full-stack basé au Sénégal, je conçois des produits numériques centrés utilisateur : sites vitrines, applications mobiles, systèmes bancaires . J'aime le design soigné, le code maintenable et l'impact réel.</p>
 
         <ul class="about-list">
-          <li><strong>Spécialités :</strong>HTML, CSS, JavaScript, C, MySql, PHP, Docker, Excel, Oracle, Java, Access, sécurité informatique/Miage, Python, Git, GitHub, WordPress, n8n, Figma</li>
-          <li><strong>Style :</strong>UI moderne, performance, sécurité</li>
-          <li><strong>Langues :</strong> Français, Anglais et Wolof</li>
-        </ul> 
+          <li data-lang="about-specialties"><strong>Spécialités :</strong>HTML, CSS, JavaScript, C, MySql, PHP, Docker, Excel, Oracle, Java, Access, sécurité informatique/Miage, Python, Git, GitHub, WordPress, n8n, Figma</li>
+          <li data-lang="about-style"><strong>Style :</strong>UI moderne, performance, sécurité</li>
+          <li data-lang="about-languages"><strong>Langues :</strong> Français, Anglais et Wolof</li>
+        </ul>
       </div>
 
       <div class="about-skillset">
-        <h3>Ce que je peux faire pour vous</h3>
+        <h3 data-lang="about-skillset-title">Ce que je peux faire pour vous</h3>
         <div class="skillbars">
           <div class="skill">
-            <label>Frontend — HTML / CSS /JS</label>
+            <label data-lang="skill-frontend">Frontend — HTML / CSS /JS</label>
             <div class="bar"><span style="width: 92%"></span></div>
           </div>
           <div class="skill">
-            <label>Backend — docker / Java / php</label>
+            <label data-lang="skill-backend">Backend — docker / Java / php</label>
             <div class="bar"><span style="width: 85%"></span></div>
           </div>
           <div class="skill">
-            <label>Mobile — Android (Java)</label>
+            <label data-lang="skill-mobile">Mobile — Android (Java)</label>
             <div class="bar"><span style="width: 78%"></span></div>
           </div>
         </div>
@@ -112,32 +114,32 @@
   <!-- SKILLS -->
   <section id="skills" class="section alt">
     <div class="container">
-      <h2>Compétences</h2>
+      <h2 data-lang="skills-title">Compétences</h2>
       <div class="skills-grid">
         <div class="skill-card glass">
           <i class="fa-solid fa-code"></i>
-          <h4>Développement Web</h4>
-          <p>HTML, CSS, JavaScript, PHP, WordPress, Figma,langage C </p>
+          <h4 data-lang="skills-web-title">Développement Web</h4>
+          <p data-lang="skills-web-desc">HTML, CSS, JavaScript, PHP, WordPress, Figma,langage C </p>
         </div>
         <div class="skill-card glass">
           <i class="fa-solid fa-server"></i>
-          <h4>Backend</h4>
-          <p>MySql, Oracle, Java, Python, Docker, Git, GitHub, n8n, Access, Excel</p>
+          <h4 data-lang="skills-backend-title">Backend</h4>
+          <p data-lang="skills-backend-desc">MySql, Oracle, Java, Python, Docker, Git, GitHub, n8n, Access, Excel</p>
         </div>
         <div class="skill-card glass">
           <i class="fa-solid fa-mobile-screen-button"></i>
-          <h4>Mobile</h4>
-          <p>Android (Java), expériences utilisateur natives</p>
+          <h4 data-lang="skills-mobile-title">Mobile</h4>
+          <p data-lang="skills-mobile-desc">Android (Java), expériences utilisateur natives</p>
         </div>
         <div class="skill-card glass">
           <i class="fa-solid fa-shield-halved"></i>
-          <h4>Sécurité & CI</h4>
-          <p>sécurité informatique/Miage, bonnes pratiques, tests unitaires, déploiement CI/CD</p>
+          <h4 data-lang="skills-security-title">Sécurité & CI</h4>
+          <p data-lang="skills-security-desc">sécurité informatique/Miage, bonnes pratiques, tests unitaires, déploiement CI/CD</p>
         </div>
         <div class="skill-card glass">
           <i class="fa-solid fa-network-wired"></i>
-          <h4>Réseaux</h4>
-          <p>Cisco Packet Tracer, Interconnections des réseaux, Outils de gestion d’un parc informatique, Gestion des serveurs sous windows et sous linux</p>
+          <h4 data-lang="skills-network-title">Réseaux</h4>
+          <p data-lang="skills-network-desc">Cisco Packet Tracer, Interconnections des réseaux, Outils de gestion d’un parc informatique, Gestion des serveurs sous windows et sous linux</p>
         </div>
       </div>
     </div>
@@ -145,8 +147,8 @@
 
   <!-- PROJECTS -->
   <section id="projects" class="section container">
-    <h2>Projets</h2>
-    <p class="muted">Sélection de projets récents. Clique sur un projet pour voir plus de détails.</p>
+    <h2 data-lang="projects-title">Projets</h2>
+    <p class="muted" data-lang="projects-subtitle">Sélection de projets récents. Clique sur un projet pour voir plus de détails.</p>
 
     <div class="projects-grid">
       <!-- Projet 1 -->
@@ -208,27 +210,27 @@
   <!-- EDUCATION -->
   <section id="education" class="section alt">
     <div class="container">
-      <h2>Formation</h2>
+      <h2 data-lang="education-title">Formation</h2>
   <div class="timeline">
         <div class="timeline-item glass">
-          <h4>Licence en Informatique de gestion</h4>
-          <span class="muted">ENSUP Afrique / 2024 - 2025</span>
-          <p>Formation spécialisée en informatique de gestion.</p>
+          <h4 data-lang="education-degree1">Licence en Informatique de gestion</h4>
+          <span class="muted" data-lang="education-institution1">ENSUP Afrique / 2024 - 2025</span>
+          <p data-lang="education-desc1">Formation spécialisée en informatique de gestion.</p>
         </div>
         <div class="timeline-item glass">
-          <h4>Licence 2 en Droit et informatique/DIL</h4>
-          <span class="muted">Université Numérique Cheikh Hamidou Kane / 2024 - 2025</span>
-          <p>Études en droit et informatique.</p>
+          <h4 data-lang="education-degree2">Licence 2 en Droit et informatique/DIL</h4>
+          <span class="muted" data-lang="education-institution2">Université Numérique Cheikh Hamidou Kane / 2024 - 2025</span>
+          <p data-lang="education-desc2">Études en droit et informatique.</p>
         </div>
         <div class="timeline-item glass">
-          <h4>Agence IA</h4>
-          <span class="muted">Autodidacte</span>
-          <p>Apprentissage autodidacte en intelligence artificielle.</p>
+          <h4 data-lang="education-degree3">Agence IA</h4>
+          <span class="muted" data-lang="education-institution3">Autodidacte</span>
+          <p data-lang="education-desc3">Apprentissage autodidacte en intelligence artificielle.</p>
         </div>
         <div class="timeline-item glass">
-          <h4>Baccalauréat</h4>
-          <span class="muted">Lycée Mouhamadou Moustapha Mbacké de Diourbel / 2021 - 2022</span>
-          <p>Diplôme de baccalauréat obtenu.</p>
+          <h4 data-lang="education-degree4">Baccalauréat</h4>
+          <span class="muted" data-lang="education-institution4">Lycée Mouhamadou Moustapha Mbacké de Diourbel / 2021 - 2022</span>
+          <p data-lang="education-desc4">Diplôme de baccalauréat obtenu.</p>
         </div>
       </div>
     </div>
@@ -236,18 +238,18 @@
 
   <!-- CONTACT -->
   <section id="contact" class="section container">
-    <h2>Contact</h2>
+    <h2 data-lang="contact-title">Contact</h2>
     <div class="contact-grid">
       <form id="contactForm" class="contact-form glass" method="post">
-        <label for="name">Nom</label>
+        <label for="name" data-lang="contact-name">Nom</label>
         <input id="name" name="name" required>
         <span class="error-message"></span>
 
-        <label for="email">Email</label>
+        <label for="email" data-lang="contact-email">Email</label>
         <input id="email" name="email" type="email" required>
         <span class="error-message"></span>
 
-        <label for="message">Message</label>
+        <label for="message" data-lang="contact-message">Message</label>
         <textarea id="message" name="message" rows="5" required></textarea>
         <span class="error-message"></span>
 
@@ -255,21 +257,21 @@
           <!-- Send button removed as requested -->
         </div>
         <div id="formMessage" class="form-message"></div>
-        <small class="muted">base de données est desactive envoi un message sur mes reseau social ou mail</small>
+        <small class="muted" data-lang="contact-note">base de données est desactive envoi un message sur mes reseau social ou mail</small>
       </form>
 
       <div class="contact-info">
         <div class="card glass">
-          <h4>Restons en contact</h4>
+          <h4 data-lang="contact-info-title">Restons en contact</h4>
           <p>Email : <a href="mailto:falloutambedou05@gmail.com">falloutambedou05@gmail.com</a></p>
           <p>WhatsApp : <a href="https://wa.me/221763348279" target="_blank">+221 76 334 8279</a></p>
-          <p>Projet phare : <strong>Leppay-Bakh</strong></p>
+          <p data-lang="contact-project">Projet phare : <strong>Leppay-Bakh</strong></p>
         </div>
 
         <div class="card glass">
-          <h4>Disponibilité</h4>
-          <p>Freelance / Contrat / Collaboration — Disponible</p>
-          <a class="btn" href="#projects">Voir mes projets</a>
+          <h4 data-lang="contact-availability-title">Disponibilité</h4>
+          <p data-lang="contact-availability-desc">Freelance / Contrat / Collaboration — Disponible</p>
+          <a class="btn" href="#projects" data-lang="contact-projects-link">Voir mes projets</a>
         </div>
       </div>
     </div>
@@ -279,9 +281,9 @@
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="container">
-    <p>© <span id="year"></span> Fallou Tambedou — Tous droits réservés.</p>
+    <p data-lang="footer-copyright">© <span id="year"></span> Fallou Tambedou — Tous droits réservés.</p>
     <div class="footer-actions">
-      <a href="#home" class="backtop" id="backTop" title="Retour en haut"><i class="fa fa-arrow-up"></i></a>
+      <a href="#home" class="backtop" id="backTop" title="Retour en haut" data-lang="footer-backtop"><i class="fa fa-arrow-up"></i></a>
     </div>
   </div>
 </footer>

@@ -46,6 +46,14 @@ header {
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
+#lang-toggle {
+  margin-left:5px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .brand {
   display: flex;
   align-items: center;
@@ -88,6 +96,7 @@ header {
 /* Mobile menu */
 .menu-toggle {
   display: none;
+  margin-left: 10px;
 }
 
 .nav-links {
@@ -128,6 +137,11 @@ header {
 
   .nav-links a:hover {
     background: rgba(255, 255, 255, 0.05);
+  }
+
+  #lang-toggle {
+    margin-left: 0;
+    margin-right: 20px;
   }
 
   .menu-toggle {
